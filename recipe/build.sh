@@ -32,11 +32,7 @@ if [[ "${pkg}" == "lwt" ]]; then
   dune exec -p lwt src/unix/config/discover.exe -- --save --use-libev false
 fi
 
-# lwt.unix needs the vendored ppx_devtools-optcomp at build time; it is built, not installed.
-build_pkgs="${pkg}"
-if [[ "${pkg}" == "lwt" ]]; then build_pkgs="lwt,ppx_devtools-optcomp"; fi
-
-dune build -p "${build_pkgs}" --profile=release -j "${CPU_COUNT:-1}" @install
+dune build -p "${pkg}" --profile=release -j "${CPU_COUNT:-1}" @install
 dune install -p "${pkg}" --prefix="${prefix}" \
   --libdir="${prefix}/lib/ocaml" \
   --docdir="${prefix}/share/doc" \

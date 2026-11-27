@@ -4,7 +4,7 @@ context:
   name: lwt
   version: "6.1.3"
 
-  build_number: 4
+  build_number: 5
 
   library: ${{ "Library/" if not unix else "" }}
   m2: ${{ "m2-" if not unix else "" }}
@@ -20,10 +20,6 @@ recipe:
 source:
   - url: https://github.com/ocsigen/lwt/archive/refs/tags/${{ version }}.tar.gz
     sha256: 6bc311d7e8aa6a16243ec6c77f9c60a1f17950bc754f2ea3d60e18ff31c155e2
-  # vendored until ppx_devtools-optcomp is on conda-forge; lwt 6.1.3 lwt.unix needs it at build time
-  - url: https://github.com/ocsigen/ppx_devtools/releases/download/0.1/ppx_devtools-0.1.tbz
-    sha256: 46ad4e62a213e3c0852c02cd1cc182d88ec89afa284a45a4316cfb3ffc0bcb9c
-    target_directory: vendor/ppx_devtools
 
 build:
   number: ${{ build_number }}
@@ -85,6 +81,7 @@ outputs:
         - ocaml-dune >=3.20
         - ocaml-dune-configurator
         - ocaml-ppxlib >=0.33
+        - ocaml-ppx-devtools-optcomp
         - ocaml-ocplib-endian
       run:
         - ocaml-ocplib-endian
